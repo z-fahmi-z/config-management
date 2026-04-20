@@ -1,0 +1,13 @@
+- name: Setup and configure webserver (Linux)
+  hosts: webservers
+  become: true
+
+  roles:
+    - name: base
+      tags: [base]
+    - name: nginx
+      tags: [nginx]
+    - name: app
+      tags: [app]
+    - name: ssh
+      tags: [ssh]

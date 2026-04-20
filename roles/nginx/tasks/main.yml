@@ -1,0 +1,33 @@
+- name: Installs nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: Start nginx service
+  ansible.builtin.service:
+    name: nginx
+    enabled: true
+    state: started
+
+- name: Upload the nginx config for serving static site
+  ansible.builtin.template:
+    src: static.conf.j2
+    dest: /etc/nginx/sites-available/static.conf
+    mode: '0644'
+
+# Since symlink creation is different between Debian/Ubuntu and RedHat/CentOS, we need to create separate tasks for each OS family.
+- name: Create symlink for nginx static site config (Debian/Ubuntu)
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/static.conf
+    dest: /etc/nginx/sites-enabled/static.conf
+    state: link
+  when: ansible_os_family == "Debian"
+  notify: Reload nginx
+
+- name: Create symlink for nginx static site config (RedHat/CentOS)
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/static.conf
+    dest: /etc/nginx/conf.d/static.conf
+    state: link
+  when: ansible_os_family == "RedHat"
+  notify: Reload nginx

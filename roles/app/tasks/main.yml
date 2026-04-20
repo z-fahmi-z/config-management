@@ -1,0 +1,19 @@
+---
+- name: Create directory for the application
+  ansible.builtin.file:
+    path: /var/www/html/{{ app_domain }}
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
+- name: Upload static files from control node to the server
+  ansible.builtin.copy:
+    src: site.tar.gz
+    dest: /var/www/html/{{ app_domain }}/site.tar.gz
+
+- name: Unzip the static files
+  ansible.builtin.unarchive:
+    src: /var/www/html/{{ app_domain }}/site.tar.gz
+    dest: /var/www/html/
+    remote_src: yes

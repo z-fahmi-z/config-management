@@ -1,0 +1,6 @@
+---
+- name: Upload the client's public SSH key to the server
+  ansible.posix.authorized_key:
+    user: "{{ ansible_user }}"
+    state: present
+    key: "{{ lookup('file', ssh_public_key_file) }}"

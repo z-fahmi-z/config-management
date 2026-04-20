@@ -1,0 +1,15 @@
+# App
+app_domain: void-runner
+
+# Fail2Ban
+fail2ban_bantime: 3600 
+fail2ban_findtime: 600
+fail2ban_maxretry: 4
+
+# Nginx
+nginx_port: 80
+nginx_server_name: localhost
+nginx_root: /var/www/html
+
+# SSH
+ssh_public_key_file: <local_path_to_your_ssh_public_key>
