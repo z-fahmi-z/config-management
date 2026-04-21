@@ -22,7 +22,7 @@ This is the deployment for the static web game [Void Runner](https://github.com/
 git clone https://github.com/z-fahmi-z/config-management.git
 cd config-management
 ```
-2. Configure Terraform
+2. Configure Terraform (DigitalOcean)
    
 ```bash
 # Copy the .tfvars.example into .tfvars file
